@@ -55,7 +55,7 @@
 {
   
   /* appkey: 开发者在友盟后台申请的应用获得（可在统计后台的 “统计分析->设置->应用信息” 页面查看）*/
-  [UMConfigure initWithAppkey:@"5b03a8688f4a9d458100021a" channel:@"App Store"];
+  [UMConfigure initWithAppkey:@"" channel:@"App Store"];
   [UMConfigure setLogEnabled:true];
   [UMConfigure setVersion:1.0];
   
@@ -70,8 +70,8 @@
 {
   /* 设置微信的appKey和appSecret */
   [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession
-                                        appKey:@"wx26883b527f83e86e"
-                                     appSecret:@"a0c351280d61ab9a1a71e9ebacb266ba"
+                                        appKey:@""
+                                     appSecret:@""
                                    redirectURL:@"http://mobile.umeng.com/social"];
   /*
    * 移除相应平台的分享，如微信收藏
@@ -83,7 +83,7 @@
   /* 设置Facebook的appKey和UrlString */
   
   [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook
-                                        appKey:@"506027402887373"
+                                        appKey:@""
                                      appSecret:nil
                                    redirectURL:@"http://www.umeng.com/social"];
   
