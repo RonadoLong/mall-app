@@ -70,7 +70,7 @@ export default class HomePage extends PureComponent {
         getGoodsListByHome(this.state.pageNum).then(res => {
             console.log("goods ==", res)
             if (res.code === 1000) {
-                this.setState({HomeGoodsList: res.data.content})
+                this.setState({HomeGoodsList: res.data.videoList})
                 StorageUtil.set(KeyUtils.GOODS_KEY, res.data.content, null, null)
             }
         }).catch(error => {
@@ -84,8 +84,10 @@ export default class HomePage extends PureComponent {
 
         getVideoListByHome(this.state.pageNum).then(res => {
             if (res.code === 1000) {
-                this.setState({HomeVideoList: res.data.content})
-                StorageUtil.set(KeyUtils.VIDEO_KEY, res.data.content, null, null)
+                this.setState({
+                    HomeVideoList: res.data.videoList
+                })
+                StorageUtil.set(KeyUtils.VIDEO_KEY, res.data.videoList, null, null)
             }
         }).catch(error => {
             Toast.hide();
@@ -101,17 +103,21 @@ export default class HomePage extends PureComponent {
     getHomeHeadersList = async () => {
         this.setState({isRefreshing: true})
         getHomeHeaders().then(res => {
-            this.setState({
-                homeNavList: res.data.homeNavList,
-                homeCarouselList: res.data.homeCarouselList,
-                isRefreshing: false
-            });
+            console.log(res.data.homeCourseList)
+            if(res.code === 1000){
+                this.setState({
+                    homeNavList: res.data.homeNavList,
+                    homeCarouselList: res.data.homeCourseList,
+                    isRefreshing: false
+                });
 
-            let HomeList = {
-                homeNavList: res.data.homeNavList,
-                homeCarouselList: res.data.homeCarouselList,
+                let HomeList = {
+                    homeNavList: res.data.homeNavList,
+                    homeCarouselList: res.data.homeCourseList,
+                }
+                StorageUtil.set(KeyUtils.HOME_KEY, HomeList, null, null)
             }
-            StorageUtil.set(KeyUtils.HOME_KEY, HomeList, null, null)
+    
 
         }).catch(error => {
             StorageUtil.get(KeyUtils.HOME_KEY, null).then(res => {
@@ -146,7 +152,7 @@ export default class HomePage extends PureComponent {
         }
 
         let videoList =
-            this.state.HomeVideoList.map((Video, key) => {
+            this.state.HomeVideoList ? this.state.HomeVideoList.map((Video, key) => {
                 return (
                     <VidioCell
                         onSelect={(item)=>{
@@ -162,10 +168,10 @@ export default class HomePage extends PureComponent {
                         item={Video}
                     />
                 )
-            })
+            }) : null
 
         let newsList =
-            this.state.HomeNewsList.map((news, key) => {
+            this.state.HomeNewsList ? this.state.HomeNewsList.map((news, key) => {
                 return (
                     <NewsCell
                         key={key}
@@ -179,7 +185,7 @@ export default class HomePage extends PureComponent {
                         }}>
                     </NewsCell>
                 )
-            });
+            }) : null
 
         let goodsList =
             this.state.HomeGoodsList.map((goods, key) => {
@@ -214,7 +220,7 @@ export default class HomePage extends PureComponent {
                                      />
                                 }>
                         <ImageSwiper
-                            banner={this.state.homeCarouselList}
+                            banner={this.state.homeCourseList}
                             tapSwiper={(i)=>{
                                 this.tapSwiper(i)
                             }}/>

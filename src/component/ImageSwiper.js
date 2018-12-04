@@ -52,7 +52,7 @@ export default class extends Component {
     }
     render () {
         const { swiperVisible } = this.state;
-        const { banner ,tapSwiper} = this.props;
+        const { banner, tapSwiper} = this.props;
         return (
             <View style={styles.container}>
                 {

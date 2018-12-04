@@ -12,7 +12,7 @@ const timeout = 150000
 
 // let host = "http://ttkgap.natappfree.cc/api/client"
 // let host = "https://www.tohnet.com/api/client"
-let host = "http://127.0.0.1:9527/api/client"
+let host = "http://127.0.0.1:8090/api/client"
 
 export default class HttpUtils {
 
